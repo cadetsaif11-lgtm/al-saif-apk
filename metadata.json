@@ -1,0 +1,6 @@
+{
+  "name": "Al-Saif Quran",
+  "description": "Al-Saif Quran app for reading, memorizing, audio recitations, Tajweed rules, and progress tracking with a liquid glass interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
