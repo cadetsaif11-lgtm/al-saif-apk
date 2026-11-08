@@ -7,7 +7,22 @@
 ![Database](https://img.shields.io/badge/Database-Room_Local_Offline-blue)
 ![License](https://img.shields.io/badge/License-Proprietary-gold)
 
+[![Download APK](https://img.shields.io/badge/Download_APK-Al--Saif--Quran--v1.0.apk-2ea44f?style=for-the-badge&logo=android)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/latest/download/Al-Saif-Quran-v1.0.apk)
+[![GitHub Release](https://img.shields.io/badge/Release-v1.0.0_Public-blue?style=for-the-badge&logo=github)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases)
+
 **Al-Saif Quran** is a premium, beautifully crafted Holy Quran application for Android featuring a modern **Liquid Glass interface**, high-fidelity audio recitations from the **Imams of the Two Holy Mosques (Haramain)** and world-renowned Qaris, verse-by-verse **Rules of Tajweed**, comprehensive **Hifz Memorization tools**, and full **offline accessibility**.
+
+---
+
+## 📥 Direct APK Download Link
+
+> **Free Public Download for All Users:**
+>
+> 📲 **[Download Al-Saif-Quran-v1.0.apk (Direct Download)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/latest/download/Al-Saif-Quran-v1.0.apk)**
+>
+> 🌐 **[All GitHub Releases & Changelog](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases)**
+>
+> ⚡ **[Live Web Applet Preview](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app)**
 
 ---
 
