@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Saif Quran (السَّيْف القرآن الكريم) — Direct APK Download</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 20%, #0d3832 0%, #08201D 60%, #040e0d 100%);
+      --gold: #D4AF37;
+      --gold-light: #F4D068;
+      --emerald: #0FA37F;
+      --glass-bg: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-highlight: rgba(212, 175, 55, 0.25);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-gradient);
+      color: #E0E8E6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+    .container {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      width: 100%;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: #08201D;
+      border: 2px solid var(--gold);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 42px;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: #FFFFFF;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .arabic-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+      direction: rtl;
+    }
+    .tagline {
+      font-size: 0.95rem;
+      color: #A3B8B4;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0FA37F 0%, #0B8063 100%);
+      color: #FFFFFF;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 18px 28px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(15, 163, 127, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto 12px;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(15, 163, 127, 0.55);
+    }
+    .download-btn:active {
+      transform: translateY(0);
+    }
+    .btn-subtext {
+      font-size: 0.8rem;
+      color: #7E9793;
+    }
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media(min-width: 480px) {
+      .features-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #C3D4D1;
+    }
+    .feature-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: #A3B8B4;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #08201D;
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .footer {
+      font-size: 0.8rem;
+      color: #6C827E;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero-card">
+      <div class="badge">✨ Verified Android Release v1.0.0</div>
+      <div class="app-icon">📖</div>
+      <h1>Al-Saif Quran</h1>
+      <div class="arabic-title">السَّيْف القرآن الكريم</div>
+      <p class="tagline">
+        The Holy Quran with Liquid Glass interface, 14 Haramain & World-Renowned Recitations, Rules of Tajweed breakdown, and Hifz Memorization Studio.
+      </p>
+
+      <a href="/Al-Saif-Quran-v1.0.apk" class="download-btn" download="Al-Saif-Quran-v1.0.apk">
+        <span>📥 Download APK Directly</span>
+      </a>
+      <p class="btn-subtext">Version 1.0.0 • Size: 23 MB • Android 7.0+ (Nougat through Android 15/16)</p>
+      <div style="margin-top: 8px;">
+        <a href="/app-debug.apk" style="font-size: 0.82rem; color: #D4AF37; text-decoration: underline;" download="app-debug.apk">
+          Alternate Direct Link (app-debug.apk)
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎙️ Featured Haramain Reciters</h2>
+      <div class="features-list">
+        <div class="feature-item"><span class="feature-icon">🕋</span><span><strong>Sheikh Yasser Al-Dosari</strong><br>Imam of Masjid Al-Haram</span></div>
+        <div class="feature-item"><span class="feature-icon">🕋</span><span><strong>Sheikh Abdur-Rahman As-Sudais</strong><br>Imam of Masjid Al-Haram</span></div>
+        <div class="feature-item"><span class="feature-icon">🕋</span><span><strong>Sheikh Maher Al-Muaiqly</strong><br>Imam of Masjid Al-Haram</span></div>
+        <div class="feature-item"><span class="feature-icon">🕋</span><span><strong>Sheikh Abdullah Awad Al-Juhany</strong><br>High-Fidelity Audio Mode</span></div>
+        <div class="feature-item"><span class="feature-icon">🕌</span><span><strong>Sheikh Ali Al-Hudhaify</strong><br>Senior Imam of Masjid Nabawi</span></div>
+        <div class="feature-item"><span class="feature-icon">🕌</span><span><strong>Sheikh Muhammad Ayyub</strong><br>Late Imam of Masjid Nabawi</span></div>
+        <div class="feature-item"><span class="feature-icon">✨</span><span><strong>Sheikh Abdullah Basfar</strong><br>Studio HD 192kbps Murattal</span></div>
+        <div class="feature-item"><span class="feature-icon">✨</span><span><strong>Sheikh Mishary Alafasy</strong><br>Renowned Kuwaiti Reciter</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📲 How to Install the APK on Your Android Device</h2>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>Click the green <strong>"Download APK Directly"</strong> button above to download the file directly to your phone.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>When downloaded, tap the notification or open <strong>Downloads</strong> in your file manager.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>If prompted with <em>"Install unknown apps"</em>, tap <strong>Settings</strong> and switch on <strong>Allow from this source</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div>Tap <strong>Install</strong>. Once completed, tap <strong>Open</strong> to start reciting and memorizing!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Al-Saif Quran (السَّيْف القرآن الكريم) • Free & Open for all Muslims worldwide</p>
+    </div>
+  </div>
+</body>
+</html>
