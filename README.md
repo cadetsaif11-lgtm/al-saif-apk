@@ -173,3 +173,7 @@ gradle :app:testDebugUnitTest
 ## 🕋 Dedication
 
 *Dedicated to the Ummah for learning, reciting, and memorizing the words of Allah Almighty with proper Tajweed and reverence.*
+
+Thank You
+Abdullah Saif Bin Nazrul
+Developer, Al-Saif Quran App
