@@ -178,5 +178,6 @@ gradle :app:testDebugUnitTest
 Thank You
 
 Abdullah Saif Bin Nazrul
-
 Developer, Al-Saif Quran App
+
+Contact✉️: cadetsaif@gmail.com
