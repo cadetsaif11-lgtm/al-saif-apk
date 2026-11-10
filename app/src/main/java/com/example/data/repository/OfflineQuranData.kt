@@ -7,10 +7,6 @@ object OfflineQuranData {
     fun getPredefinedAyahs(surahNumber: Int): List<Ayah> {
         return when (surahNumber) {
             1 -> getAlFatihah()
-            2 -> getAlBaqarahHighlights()
-            36 -> getYaSinHighlights()
-            55 -> getArRahmanHighlights()
-            67 -> getAlMulkHighlights()
             103 -> getAlAsr()
             108 -> getAlKawthar()
             109 -> getAlKafirun()

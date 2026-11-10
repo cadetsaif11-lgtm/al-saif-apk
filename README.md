@@ -7,24 +7,24 @@
 ![Database](https://img.shields.io/badge/Database-Room_Local_Offline-blue)
 ![License](https://img.shields.io/badge/License-Proprietary-gold)
 
-[![Download APK Direct](https://img.shields.io/badge/Direct_APK_Download-23_MB-2ea44f?style=for-the-badge&logo=android)](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app/Al-Saif-Quran-v1.0.apk)
-[![Web Portal](https://img.shields.io/badge/Download_Portal-Live-blue?style=for-the-badge&logo=googlechrome)](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app/)
+[![Download APK v1.1.0](https://img.shields.io/badge/Download_APK-v1.1.0_Release-2ea44f?style=for-the-badge&logo=android)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/latest/download/Al-Saif-Quran-Latest.apk)
+[![GitHub Releases](https://img.shields.io/badge/GitHub_Releases-v1.1.0-blue?style=for-the-badge&logo=github)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases)
 
-**Al-Saif Quran** is a premium, beautifully crafted Holy Quran application for Android featuring a modern **Liquid Glass interface**, high-fidelity audio recitations from the **Imams of the Two Holy Mosques (Haramain)** and world-renowned Qaris, verse-by-verse **Rules of Tajweed**, comprehensive **Hifz Memorization tools**, and full **offline accessibility**.
+**Al-Saif Quran** is a premium, beautifully crafted Holy Quran application for Android featuring a modern **Liquid Glass interface**, high-fidelity audio recitations from the **Imams of the Two Holy Mosques (Haramain)** and world-renowned Qaris, verse-by-verse **Rules of Tajweed**, comprehensive **Hifz Memorization tools**, and full **offline accessibility** with English, Bangla (মুহিউদ্দীন خان), and Urdu translations.
 
 ---
 
 ## 📥 Direct APK Download Links
 
-> **Instant Public Download (No Errors, Direct Link):**
+> **Official Public Release v1.1.0:**
 >
-> 📲 **[Download Al-Saif-Quran-v1.0.apk (Direct 23 MB APK)](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app/Al-Saif-Quran-v1.0.apk)**
+> 📲 **[Download Al-Saif-Quran-Latest.apk (Direct Download)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/latest/download/Al-Saif-Quran-Latest.apk)**
 >
-> 🌐 **[Download Web Portal (Mobile & Desktop)](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app/)**
+> 📦 **[Download Al-Saif-Quran-v1.1.0.apk (Versioned Download)](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/download/v1.1.0/Al-Saif-Quran-v1.1.0.apk)**
 >
-> 📦 **[Alternate Direct Link (app-debug.apk)](https://ais-pre-tyalmmdbdkdcgofamdkmvo-268963824204.asia-east1.run.app/app-debug.apk)**
+> 🌐 **[All GitHub Public Releases & Changelog](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases)**
 >
-> 🐙 **GitHub Repository**: [github.com/cadetsaif11-lgtm/al-saif-apk](https://github.com/cadetsaif11-lgtm/al-saif-apk) *(Use "Push to GitHub" in AI Studio to sync release)*
+> ⚡ **Direct In-Workspace File**: `Al-Saif-Quran-v1.1.0.apk` available in the root file explorer.
 
 ---
 
@@ -57,7 +57,7 @@ Enjoy studio-quality, clear audio playback powered by Android `AudioAttributes.C
 
 ### 📜 3. Complete 114 Surahs & Offline Reading
 - Complete catalog of all 114 Surahs with both Meccan (مكية) and Medinan (مدنية) designations.
-- Verse-by-verse Arabic text, English transliteration, Sahih International translation, and Urdu translation.
+- Verse-by-verse Arabic text, English transliteration, Sahih International English translation, **Bangla (মুহিউদ্দীন খান) translation**, and Urdu translation with instant multi-language dropdown selector.
 - Adjustable Arabic and translation font scaling with immediate live preview.
 - Quick Jump to any Ayah or Surah.
 

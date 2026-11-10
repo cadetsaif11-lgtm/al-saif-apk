@@ -13,6 +13,7 @@ data class Ayah(
     val arabicText: String,
     val translationSahih: String,
     val translationUrdu: String = "",
+    val translationBangla: String = "",
     val transliteration: String = "",
     val words: List<AyahWord> = emptyList(),
     val tajweedRules: List<TajweedSpan> = emptyList(),

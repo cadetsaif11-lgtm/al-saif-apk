@@ -31,7 +31,7 @@ data class AlSaifUiState(
 class AlSaifViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = QuranDatabase.getDatabase(application)
-    private val repository = QuranDataRepository(database.quranDao())
+    private val repository = QuranDataRepository(database.quranDao(), application)
     val audioManager = AudioPlayerManager(application)
 
     private val _uiState = MutableStateFlow(

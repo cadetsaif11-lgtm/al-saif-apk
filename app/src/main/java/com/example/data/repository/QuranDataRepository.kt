@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import android.content.Context
 import com.example.data.local.BookmarkEntity
 import com.example.data.local.MemorizationRecordEntity
 import com.example.data.local.QuranDao
@@ -7,9 +8,13 @@ import com.example.data.local.UserPreferenceEntity
 import com.example.data.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 class QuranDataRepository(
-    private val quranDao: QuranDao
+    private val quranDao: QuranDao,
+    private val context: Context? = null
 ) {
 
     // 1. All 114 Surahs
@@ -134,15 +139,157 @@ class QuranDataRepository(
         return surahs.find { it.number == number }
     }
 
-    // 2. Fetch Verses for a Surah (100% Offline Access with rich Tajweed Annotations)
+    private val ayahsCache = mutableMapOf<Int, List<Ayah>>()
+
+    // 2. Fetch Verses for a Surah (100% Offline, Complete Authentic Ayahs with Tajweed Annotations)
     fun getAyahsForSurah(surahNumber: Int): List<Ayah> {
+        ayahsCache[surahNumber]?.let { return it }
+
+        // 1. Primary: Load complete authentic verses from bundled JSON assets
+        val fromAssets = loadAyahsFromAssets(surahNumber)
+        if (fromAssets.isNotEmpty()) {
+            ayahsCache[surahNumber] = fromAssets
+            return fromAssets
+        }
+
+        // 2. Fallback to predefined in OfflineQuranData (e.g. in unit tests where Context is absent)
         val predefined = OfflineQuranData.getPredefinedAyahs(surahNumber)
         if (predefined.isNotEmpty()) {
+            ayahsCache[surahNumber] = predefined
             return predefined
         }
-        // Offline generation fallback for all other Surahs
+
         val surah = getSurahByNumber(surahNumber) ?: return emptyList()
-        return OfflineQuranData.generateFallbackAyahs(surah)
+        val fallback = OfflineQuranData.generateFallbackAyahs(surah)
+        ayahsCache[surahNumber] = fallback
+        return fallback
+    }
+
+    private fun loadAyahsFromAssets(surahNumber: Int): List<Ayah> {
+        val ctx = context ?: return emptyList()
+        return try {
+            val inputStream = ctx.assets.open("quran/surah_$surahNumber.json")
+            val reader = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
+            val jsonString = reader.use { it.readText() }
+            val jsonArray = JSONArray(jsonString)
+            val list = ArrayList<Ayah>(jsonArray.length())
+
+            val predefined = OfflineQuranData.getPredefinedAyahs(surahNumber)
+            val predefinedMap = predefined.associateBy { it.ayahNumber }
+
+            for (i in 0 until jsonArray.length()) {
+                val obj = jsonArray.getJSONObject(i)
+                val ayahNum = obj.getInt("ayahNumber")
+                val arabic = obj.getString("arabicText")
+                val enText = obj.getString("translationSahih")
+                val urText = obj.optString("translationUrdu", "")
+                val bnText = obj.optString("translationBangla", "")
+                val audioUrl = obj.optString("audioAyahUrl", "")
+
+                val pre = predefinedMap[ayahNum]
+                val tajweedRules = pre?.tajweedRules?.takeIf { it.isNotEmpty() }
+                    ?: detectTajweedRules(arabic)
+
+                val words = pre?.words ?: emptyList()
+                val transliteration = pre?.transliteration?.takeIf { it.isNotBlank() }
+                    ?: "Ayah $ayahNum"
+
+                list.add(
+                    Ayah(
+                        surahNumber = surahNumber,
+                        ayahNumber = ayahNum,
+                        arabicText = arabic,
+                        translationSahih = enText,
+                        translationUrdu = urText,
+                        translationBangla = bnText,
+                        transliteration = transliteration,
+                        words = words,
+                        tajweedRules = tajweedRules,
+                        audioAyahUrl = audioUrl
+                    )
+                )
+            }
+            list
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    private fun detectTajweedRules(arabic: String): List<TajweedSpan> {
+        val spans = mutableListOf<TajweedSpan>()
+
+        // 1. Ghunnah (Noon/Meem with Shaddah)
+        if (arabic.contains("نّ") || arabic.contains("مّ") ||
+            arabic.contains("نَّ") || arabic.contains("مَّ") ||
+            arabic.contains("نِّ") || arabic.contains("مِّ") ||
+            arabic.contains("نُّ") || arabic.contains("مُّ")) {
+            val sub = if (arabic.contains("نّ") || arabic.contains("نَّ") || arabic.contains("نِّ") || arabic.contains("نُّ")) "نّ" else "مّ"
+            spans.add(
+                TajweedSpan(
+                    rule = TajweedRuleType.GHUNNAH,
+                    arabicSubstring = sub,
+                    explanation = "Ghunnah: Nasal sound held for 2 counts on Shaddah.",
+                    phoneticTip = "Hum through the nasal cavity for two beats."
+                )
+            )
+        }
+
+        // 2. Qalqalah (ق, ط, ب, ج, د with sukoon or at stopping point)
+        if (arabic.contains("قْ") || arabic.contains("طْ") || arabic.contains("بْ") ||
+            arabic.contains("جْ") || arabic.contains("دْ") ||
+            arabic.endsWith("ق") || arabic.endsWith("ط") || arabic.endsWith("ب") ||
+            arabic.endsWith("ج") || arabic.endsWith("د") ||
+            arabic.endsWith("قٌ") || arabic.endsWith("دٌ") || arabic.endsWith("دٍ") ||
+            arabic.contains("أَحَدٌ") || arabic.contains("الصَّمَدُ") || arabic.contains("يَلِدْ") || arabic.contains("يُولَدْ")) {
+            spans.add(
+                TajweedSpan(
+                    rule = TajweedRuleType.QALQALAH,
+                    arabicSubstring = "قُطْبُ جَدٍّ",
+                    explanation = "Qalqalah: Echoing bounce on letter with sukoon or verse stop.",
+                    phoneticTip = "Release quickly with a vibrant echoing bounce."
+                )
+            )
+        }
+
+        // 3. Madd (Prolongation - marked by Madda mark ٓ or ~)
+        if (arabic.contains("ٓ") || arabic.contains("~") || arabic.contains("آ")) {
+            spans.add(
+                TajweedSpan(
+                    rule = TajweedRuleType.MADD,
+                    arabicSubstring = "المَدّ",
+                    explanation = "Madd: Prolongation of long vowel for 4 to 6 harakat.",
+                    phoneticTip = "Extend vowel sound smoothly without abrupt break."
+                )
+            )
+        }
+
+        // 4. Tafkheem (Heavy letters: خ, ص, ض, غ, ط, ق, ظ)
+        if (arabic.contains("ص") || arabic.contains("ض") || arabic.contains("ط") ||
+            arabic.contains("ظ") || arabic.contains("غ") || arabic.contains("خ") ||
+            arabic.contains("ق")) {
+            spans.add(
+                TajweedSpan(
+                    rule = TajweedRuleType.TAFKHEEM,
+                    arabicSubstring = "خُصَّ ضَغْطٍ قِظْ",
+                    explanation = "Tafkheem: Isti'la heavy letter with full-mouth resonance.",
+                    phoneticTip = "Elevate the back of the tongue towards the soft palate."
+                )
+            )
+        }
+
+        // 5. Iqlab (marked by small meem ۢ or ۭ)
+        if (arabic.contains("ۢ") || arabic.contains("ۭ")) {
+            spans.add(
+                TajweedSpan(
+                    rule = TajweedRuleType.IQLAB,
+                    arabicSubstring = "الإِقْلاب",
+                    explanation = "Iqlab: Conversion of Noon Saakin/Tanween into Meem before Baa.",
+                    phoneticTip = "Close lips lightly without pressure and apply ghunnah."
+                )
+            )
+        }
+
+        return spans
     }
 
     // Bookmarks Operations

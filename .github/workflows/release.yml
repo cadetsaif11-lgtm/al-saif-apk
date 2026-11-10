@@ -29,7 +29,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Generate Dummy Keystore if missing
+      - name: Generate Keystore if missing
         run: |
           if [ ! -f "debug.keystore" ]; then
             keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
@@ -38,41 +38,49 @@ jobs:
       - name: Build Debug APK
         run: gradle assembleDebug --no-daemon
 
-      - name: Prepare APK Artifact
+      - name: Prepare APK Artifacts
         run: |
           mkdir -p release-apk
-          cp app/build/outputs/apk/debug/app-debug.apk release-apk/Al-Saif-Quran-v1.0.apk
-          echo "APK generated successfully:"
-          ls -lh release-apk/Al-Saif-Quran-v1.0.apk
+          cp app/build/outputs/apk/debug/app-debug.apk release-apk/Al-Saif-Quran-v1.1.0.apk
+          cp app/build/outputs/apk/debug/app-debug.apk release-apk/Al-Saif-Quran-Latest.apk
+          echo "APKs generated successfully:"
+          ls -lh release-apk/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Al-Saif-Quran-v1.0-APK
-          path: release-apk/Al-Saif-Quran-v1.0.apk
+          name: Al-Saif-Quran-v1.1.0-APK
+          path: release-apk/Al-Saif-Quran-v1.1.0.apk
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "Al-Saif Quran v1.0.0 — Official Public Release"
+          tag_name: v1.1.0
+          name: "Al-Saif Quran v1.1.0 — Official Public Release"
+          make_latest: true
           body: |
-            ### 📖 Al-Saif Quran (السَّيْف القرآن الكريم) — Public Release v1.0.0
+            ### 📖 Al-Saif Quran (السَّيْف القرآن الكريم) — Release v1.1.0
             
-            Welcome to the official public release of **Al-Saif Quran** for Android!
+            Official verified release of **Al-Saif Quran** for Android by **Abdullah Saif Bin Nazrul**!
             
-            #### 🌟 Highlights
-            - **14 Haramain & Master Reciters**: Sheikh Yasser Al-Dosari, Sheikh Abdur-Rahman As-Sudais, Sheikh Maher Al-Muaiqly, Sheikh Saud Ash-Shuraim, Sheikh Abdullah Awad Al-Juhany, Sheikh Ali Jaber, Sheikh Ali Al-Hudhaify, Sheikh Muhammad Ayyub, Sheikh Salah Al-Budair, Sheikh Abdullah Basfar (Studio HD), Sheikh Mishary Rashid Alafasy, Sheikh Mahmoud Khalil Al-Husary, Sheikh Abdul Basit Abdul Samad, and Sheikh Saad Al-Ghamdi.
-            - **Enhanced Audio Clarity**: High-fidelity media streaming with calibrated acoustic balance.
-            - **Liquid Glass Interface**: Modern glassmorphic cards, gold crest iconography, and dark/night reading mode.
-            - **Complete Offline Reading**: 114 Surahs with authentic Arabic calligraphy (Amiri font), English translation, Urdu translation, and transliteration.
-            - **Rules of Tajweed Engine**: 7 core rules with color-coded badges, letter guides, and authentic examples.
-            - **Hifz Memorization Studio**: Masking self-test, audio repetition loop (3x, 5x, 10x, 20x), next-ayah quiz, daily targets, and streak tracking.
+            #### 🌟 What's New in v1.1.0:
+            - **Complete 114 Surahs & All 6,236 Ayahs**: Every single Surah from Al-Fatihah to An-Nas is bundled 100% offline with zero missing verses and strictly sequential numbering.
+            - **🇧🇩 Bangla (বাংলা) Translation Added**: Complete verse-by-verse translation by **Maulana Muhiuddin Khan (মুহিউদ্দীন খান)**.
+            - **Dropdown Multi-Language Selector**: Seamlessly switch between English (Sahih), Bangla (মুহিউদ্দীন খান), Urdu (جالندھری), and Arabic-only reading.
+            - **14 Haramain & World-Renowned Reciters**: Sheikh Yasser Al-Dosari, Sheikh Abdur-Rahman As-Sudais, Sheikh Maher Al-Muaiqly, Sheikh Saud Ash-Shuraim, Sheikh Abdullah Awad Al-Juhany (enhanced clarity), Sheikh Muhammad Ayyub, Sheikh Abdullah Basfar (Studio HD), and more.
+            - **Dynamic Rules of Tajweed Engine**: Color-coded badges for Ghunnah, Qalqalah, Madd, Tafkheem, Iqlab, and Idgham on all 6,236 verses.
+            - **Hifz Memorization Studio**: Card recall masking, repetition audio looper (3x, 5x, 10x, 20x), next-ayah quiz, daily goals, and streak tracking.
+            - **Liquid Glass Interface & Emerald Dark Mode**: Glassmorphism cards with authentic `Amiri` calligraphy typeface.
             
-            #### 📥 Download & Install
-            Download **`Al-Saif-Quran-v1.0.apk`** below and tap to install directly on any Android device (Android 7.0 / SDK 24+).
-          files: release-apk/Al-Saif-Quran-v1.0.apk
+            #### 📥 Download Links
+            - **[Al-Saif-Quran-v1.1.0.apk](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/download/v1.1.0/Al-Saif-Quran-v1.1.0.apk)** (Direct versioned APK)
+            - **[Al-Saif-Quran-Latest.apk](https://github.com/cadetsaif11-lgtm/al-saif-apk/releases/latest/download/Al-Saif-Quran-Latest.apk)** (Always latest APK)
+            
+            *Compatible with Android 7.0 (Nougat) through Android 15/16 (SDK 24 to 36).*
+          files: |
+            release-apk/Al-Saif-Quran-v1.1.0.apk
+            release-apk/Al-Saif-Quran-Latest.apk
           draft: false
           prerelease: false
         env:

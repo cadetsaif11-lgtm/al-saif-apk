@@ -41,10 +41,11 @@ import com.example.ui.theme.AmiriFont
 import com.example.ui.theme.CinzelFont
 import com.example.ui.theme.LocalGlassTheme
 
-enum class TranslationType(val label: String) {
-    SAHIH_INTERNATIONAL("English (Sahih)"),
-    URDU("Urdu (Jalandhari)"),
-    NONE("Hide Translation")
+enum class TranslationType(val label: String, val shortLabel: String) {
+    SAHIH_INTERNATIONAL("English (Sahih)", "English"),
+    BANGLA("বাংলা (মুহিউদ্দীন খান)", "বাংলা"),
+    URDU("اردو (جالندھری)", "اردو"),
+    NONE("Hide Translation", "Hide")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -257,30 +258,53 @@ fun SurahReaderScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Translation Toggle
-                    TextButton(
-                        onClick = {
-                            activeTranslation = when (activeTranslation) {
-                                TranslationType.SAHIH_INTERNATIONAL -> TranslationType.URDU
-                                TranslationType.URDU -> TranslationType.NONE
-                                TranslationType.NONE -> TranslationType.SAHIH_INTERNATIONAL
+                    // Translation Selector with Dropdown
+                    var showTranslationMenu by remember { mutableStateOf(false) }
+
+                    Box {
+                        TextButton(
+                            onClick = { showTranslationMenu = true },
+                            modifier = Modifier.testTag("translation_toggle_button")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Translate,
+                                contentDescription = "Select Translation",
+                                tint = glass.accentGold,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = activeTranslation.shortLabel,
+                                fontSize = 11.sp,
+                                color = glass.accentGold,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = showTranslationMenu,
+                            onDismissRequest = { showTranslationMenu = false },
+                            modifier = Modifier
+                                .background(glass.surfaceGlass.copy(alpha = 0.95f))
+                                .border(BorderStroke(1.dp, glass.borderGlass), RoundedCornerShape(12.dp))
+                        ) {
+                            TranslationType.values().forEach { trans ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = trans.label,
+                                            fontSize = 13.sp,
+                                            color = if (activeTranslation == trans) glass.accentGold else glass.textPrimary,
+                                            fontWeight = if (activeTranslation == trans) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                    },
+                                    onClick = {
+                                        activeTranslation = trans
+                                        showTranslationMenu = false
+                                    }
+                                )
                             }
-                        },
-                        modifier = Modifier.testTag("translation_toggle_button")
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Translate,
-                            contentDescription = null,
-                            tint = glass.accentGold,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = activeTranslation.label.take(8),
-                            fontSize = 11.sp,
-                            color = glass.accentGold,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                        }
                     }
 
                     // Tajweed Mode Toggle
@@ -580,6 +604,18 @@ fun SurahReaderScreen(
                                     fontSize = 14.sp,
                                     color = glass.textSecondary,
                                     lineHeight = 20.sp
+                                )
+                            }
+                        }
+                        TranslationType.BANGLA -> {
+                            if (ayah.translationBangla.isNotBlank()) {
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    text = ayah.translationBangla,
+                                    fontSize = 15.sp,
+                                    color = glass.textSecondary,
+                                    lineHeight = 22.sp,
+                                    modifier = Modifier.fillMaxWidth()
                                 )
                             }
                         }
